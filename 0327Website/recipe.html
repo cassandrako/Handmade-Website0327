@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Sketch</title>
+      <link rel="stylesheet" type="text/css" href="style.css">
+      <script src="libraries/p5.min.js"></script>
+      <script src="libraries/p5.sound.min.js"></script>
+   </head>
+
+   <body>
+      <nav>
+         <ul>
+            <li><a href="nutrition.html">Nutrition</a></li>
+            <li><a href="recipe.html">Recipes</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="mealplanning.html">Meal Planning</a></li>
+         </ul>
+      </nav>
+   </body>
+   <body>
+      <div id="background"></div>
+      <p id="Ingredients">
+         <span>Ingredients:</span
+            ><br /><br /><span
+            >1 lb chicken wings</span
+            ><br /><span
+            >1 tbsp olive oil</span
+            ><br /><span
+            >1 tsp salt</span
+            ><br /><span
+            >1/2 tsp black pepper</span
+            ><br /><span
+            >1/2 tsp garlic powder</span
+            ><br /><span
+            >1/2 tsp paprika</span
+            ><br /><span
+            >Cooking spray</span
+            >
+      </p>
+      <p id="title2">
+         Most students in their first years of university/college do not cook due to their meal plan.
+         However, most students do not end up cooking due to lack of simple recipes. Hence, they resort
+         to take out.
+      </p>
+      <p id="quickrecipe"
+         >
+         A quick recipe to get you started:
+      </p>
+      <p id="search"
+         >
+         Here you will be able to search a variety of recipes with a simple search endlessly. If you’re
+         unable to think of what to eat, just type a quick key word.
+      </p>
+      <p id="chicken">
+         <img src="assets/ellipse-8.png" />
+      </p>
+      
+      <p id="exrecipe"
+         >
+         <span
+            >Air Fryer Chicken Wings</span
+            ><br /><br /><span
+            >Instructions:</span
+            ><br /><br /><span
+            >Preheat the air fryer to 400°F.</span
+            ><br /><span
+            >In a bowl, mix together the olive oil, salt, black pepper, garlic powder, and paprika.</span
+            ><br /><span
+            >Add the chicken wings to the bowl and toss to coat them with the seasoning mixture.</span
+            ><br /><span
+            >Lightly spray the air fryer basket with cooking spray.</span
+            ><br /><span
+            >Arrange the chicken wings in a single layer in the air fryer basket.</span
+            ><br /><span
+            >Cook the chicken wings for 12-15 minutes, flipping them halfway through, until they are
+         crispy and cooked through.</span
+            ><br /><span
+            >Serve the chicken wings hot with your favorite dipping sauce.</span
+            ><br /><span
+            >Enjoy your delicious and easy air fryer chicken wings!</span
+            >
+      </p>
+      <div id="api">
+      <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+      <input id="search" ><button onclick="getrecepe(document.getElementById('search').value)">Search</button>
+      <div id="output"></div>
+      <a href="" id="sourceLink"></a>
+      <script>
+         function getsource(id){
+         $.ajax({
+         url:"https://api.spoonacular.com/recipes/"+id+"/information?apiKey=db254b5cd61744d39a2deebd9c361444",
+         success: function(res) {
+         
+         document.getElementById("sourceLink").innerHTML=res.sourceUrl
+         document.getElementById("sourceLink").href=res.sourceUrl
+         }
+         });
+         }
+         function getrecepe(q){
+         $.ajax({
+         url:"https://api.spoonacular.com/recipes/search?apiKey=db254b5cd61744d39a2deebd9c361444&number=1&query="+q,
+         success: function(res) {
+         
+         document.getElementById("output").innerHTML="<h1>"+res.results[0].title+"</h1><br><img src='"+res.baseUri+res.results[0].image+"' width='400' /><br>Ready in "+res.results[0].readyInMinutes+" minutes"
+         getsource(res.results[0].id)
+         }
+         });
+         }
+         
+      </script>
+      </div>
+   </body>
+</html>
